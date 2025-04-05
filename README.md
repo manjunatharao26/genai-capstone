@@ -1,6 +1,7 @@
 # genai-capstone
 
 Lets experiment with AI
+https://aisummariz.streamlit.app/
 
 ## Setting Up the API Key
 
