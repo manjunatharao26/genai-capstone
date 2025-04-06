@@ -4,3 +4,11 @@ lxml_html_clean
 youtube-transcript-api
 streamlit
 google.generativeai
+beautifulsoup4
+requests
+faiss-cpu
+pydantic>=2.0.0 
+google-generativeai
+langchain-core
+langchain-community
+langchain-google-genai

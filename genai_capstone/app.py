@@ -15,6 +15,16 @@ from genai_capstone.utils.news_utils import get_news_article_text
 st.title("GenAI Capstone - URL Summarizer")
 st.write("Enter the URL of a YouTube video or a news article to get a summary.")
 
+# Add LinkedIn profile badge
+st.markdown("""
+<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+            
+<div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="manjunatharao26" data-version="v1">
+    <a class="badge-base__link LI-simple-link" href="https://in.linkedin.com/in/manjunatharao26?trk=profile-badge">Manjunatha Rao</a>
+</div>
+""", 
+unsafe_allow_html=True)
+
 url = st.text_input("Enter URL:", placeholder="https://www.youtube.com/watch?v=example or https://news.example.com/article")
 st.session_state.url = url  # Store the URL in session state
 
