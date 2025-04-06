@@ -8,8 +8,8 @@ project_root = os.path.dirname(current_dir)
 sys.path.append(project_root)
 
 import google.generativeai
-from genai_capstone.utils.youtube_utils import summarize_url
-from genai_capstone.utils.news_utils import get_news_article_text
+from genai_urlsumriz.utils.youtube_utils import summarize_url
+from genai_urlsumriz.utils.news_utils import get_news_article_text
 
 # Streamlit UI
 st.title("GenAI Capstone - URL Summarizer")

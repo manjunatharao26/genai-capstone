@@ -1,6 +1,6 @@
 import re
 from youtube_transcript_api import YouTubeTranscriptApi
-from genai_capstone.utils.summarizer import summarize_content
+from genai_urlsumriz.utils.summarizer import summarize_content
 
 def is_youtube_url(url: str) -> bool:
     return 'youtube.com/watch' in url or 'youtu.be/' in url
@@ -28,7 +28,7 @@ def summarize_url(url: str):
         content = get_youtube_transcript(video_id)
     else:
         print("Fetching news article text...")
-        from genai_capstone.utils.news_utils import get_news_article_text
+        from genai_urlsumriz.utils.news_utils import get_news_article_text
         content = get_news_article_text(url)
 
     print("Generating summary with LLM...")
@@ -45,7 +45,7 @@ def summarize_url(url: str) ->str:
         content = get_youtube_transcript(video_id)
     else:
         print("Fetching news article text...")
-        from genai_capstone.utils.news_utils import get_news_article_text
+        from genai_urlsumriz.utils.news_utils import get_news_article_text
         content = get_news_article_text(url)
 
     print("Generating summary with LLM...")

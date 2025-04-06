@@ -14,8 +14,8 @@ directory = os.path.dirname(os.path.abspath(__file__))
 parent_directory = os.path.dirname(directory)
 sys.path.append(parent_directory)
 
-from genai_capstone.utils.youtube_utils import summarize_url
-from genai_capstone.utils.news_utils import get_news_article_text
+from genai_urlsumriz.utils.youtube_utils import summarize_url
+from genai_urlsumriz.utils.news_utils import get_news_article_text
 
 if __name__ == "__main__":
     url = input("Enter the full path to your YT video/news article: ")
