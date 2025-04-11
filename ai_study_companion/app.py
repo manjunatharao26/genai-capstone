@@ -1,5 +1,6 @@
 from utils.scrape_mission import get_pega_mission_steps
-from utils.llm_utils import summarize_mission, extract_key_concepts, generate_quiz, create_study_plan, answer_question_with_rag
+from utils.llm_utils import summarize_mission, extract_key_concepts, generate_quiz, create_study_plan, answer_question_with_rag,evaluate_quiz,evaluate_summary
+from utils.timeline_utils import create_study_plan_json, render_timeline
 from utils.vectore_store import create_vector_store
 import streamlit as st
 import datetime
@@ -26,7 +27,7 @@ with st.sidebar:
 
 if app_mode == "Pega Study Companion":
     st.header("Pega Study Companion")
-    mission_url = st.text_input("Enter Pega Academy Mission URL:")
+    mission_url ="https://academy.pega.com/mission/system-architect/v7?"# TODO st.text_input("Enter Pega Academy Mission URL:")
     study_days = st.slider("How many days do you want to study this mission?", 3, 21, 7)
     if st.button("🧪 Generate Study Guide"):
         if mission_url:
@@ -39,11 +40,12 @@ if app_mode == "Pega Study Companion":
                 st.session_state['summary'] = summarize_mission(combined_text)
                 st.session_state['concepts'] = extract_key_concepts(combined_text)
                 st.session_state['quiz'] = generate_quiz(combined_text)
-                st.session_state['plan'] = create_study_plan(combined_text, study_days)
+                st.session_state['plan']  = create_study_plan_json(combined_text, study_days)
+                #st.session_state['plan'] = create_study_plan(combined_text, study_days)
 
     # --- Main Content Tabs ---
     if "combined_text" in st.session_state:
-        tabs = st.tabs(["📘 Summary", "🧠 Key Concepts", "❓ Quiz", "🗓️ Study Plan", "🔍 Ask me anything"])
+        tabs = st.tabs(["📘 Summary", "🧠 Key Concepts", "❓ Quiz", "🗓️ Study Plan", "🔍 Ask me anything", "📊 Evaluate AI Output"])
 
         with tabs[0]:
             st.markdown(st.session_state['summary'])
@@ -55,7 +57,12 @@ if app_mode == "Pega Study Companion":
             st.markdown(st.session_state['quiz'])
 
         with tabs[3]:
-            st.markdown(st.session_state['plan'])
+                plan_json=st.session_state['plan']
+                if isinstance(plan_json, list):
+                    render_timeline(plan_json)
+                else:
+                    st.error("❌ Failed to generate a structured study plan.")
+                    st.code(plan_json)  # shows error or raw response
 
         with tabs[4]:
             st.subheader("🧠 Ask me anything from this mission")
@@ -89,12 +96,27 @@ if app_mode == "Pega Study Companion":
                 st.markdown(f"**🤖 Answer:** {qa['answer']}")
                 st.markdown("---")
 
+        with tabs[5]:
+            st.subheader("📊 Evaluate Summary and Quiz Quality")
+
+            if st.button("🔍 Evaluate Summary"):
+                with st.spinner("Evaluating summary..."):
+                    summary_eval = evaluate_summary(st.session_state['summary'] )
+                st.markdown("### ✅ Summary Evaluation")
+                st.markdown(summary_eval)
+
+            if st.button("📝 Evaluate Quiz"):
+                with st.spinner("Evaluating quiz..."):
+                    quiz_eval = evaluate_quiz(st.session_state['quiz'] )
+                st.markdown("### ✅ Quiz Evaluation")
+                st.markdown(quiz_eval)
+
     else:
         st.info("🔍 Enter a Pega mission URL and click 'Generate Study Guide' from the sidebar to get started.")
 
 elif app_mode == "URL Summarizer":
     st.header("URL Summarizer")
-    st.write("Enter the URL of a YouTube video or a news article to get a summary.")
+    st.write("Enter the URL of a YouTube video or any web article to get a summary.")
 
     url = st.text_input("Enter URL:", placeholder="https://www.youtube.com/watch?v=example or https://news.example.com/article")
     st.session_state.url = url  # Store the URL in session state

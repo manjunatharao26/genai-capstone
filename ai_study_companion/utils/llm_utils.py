@@ -45,12 +45,22 @@ Content:
     return call_gemini(prompt)
 
 def create_study_plan(content, days=7):
-    prompt = f"""You are a Pega study coach. Based on the content below, create a {days}-day study plan to master it.
-Split it by topics, and include a short tip for each day.
+    prompt = f"""
+    You are an expert study planner. Given the following mission content, create a daily study plan spread over {days} days.
 
-Content:
-{content}
-"""
+    Output the plan in strict JSON format like this:
+    [
+      {{
+        "day": 1,
+        "title": "Introduction to Pega",
+        "goal": "Understand what Pega is and explore Dev Studio.",
+        "topics": ["What is Pega?", "Dev Studio overview"]
+      }},
+      ...
+    ]
+    Content:
+    {content}
+    """
     return call_gemini(prompt)
 
 
@@ -81,6 +91,42 @@ def answer_question_with_rag(question, vectorstore, top_k=3, relevance_threshold
     Provide a helpful answer.
     """
     return call_gemini(prompt).strip() + "\n\n📚 Based on mission content."
+
+def evaluate_summary(summary: str) -> str:
+    prompt = f"""
+You are an expert reviewer. Evaluate the following summary of a learning module.
+
+Your evaluation should include:
+- Overall Clarity (Is it easy to understand?)
+- Accuracy (Does it seem factually and contextually correct?)
+- Completeness (Does it miss anything important?)
+- Suggestions for Improvement (if any)
+
+### Summary:
+{summary}
+
+Please provide a constructive evaluation in markdown format.
+"""
+    return call_gemini(prompt)
+
+
+def evaluate_quiz(quiz: str) -> str:
+    prompt = f"""
+You are an expert evaluator. Review the quality of the following quiz.
+
+Evaluate on:
+- Relevance to the topic
+- Clarity of questions
+- Variety and difficulty level
+- Answer accuracy (if answers are included)
+
+### Quiz:
+{quiz}
+
+Provide your review in markdown format and suggest improvements if needed.
+"""
+    return call_gemini(prompt)
+
 
 
 
