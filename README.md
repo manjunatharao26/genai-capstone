@@ -6,6 +6,8 @@ Welcome to the **GenAI Study Companion**, a multi-modal, GenAI-powered learning 
 
 ---
 
+#### [Medium Article](https://medium.com/@manjunatharao26/building-a-genai-powered-study-companion-for-pega-and-beyond-fb5dea3434a3)
+
 ## ✨ Features
 
 ### 📘 Pega Mission Study Guide
@@ -75,26 +77,6 @@ streamlit run genai_urlsumriz/app.py
 ```bash
 streamlit run AIstudy_companion/app.py
 # This launches the full Pega study companion with a radio toggle for modes.
-```
-## 📂 Project Structure
-```bash
-genai-capstone/
-│
-├── AIstudy_companion/
-│   ├── app.py                    # Streamlit main app (radio-based multi-tool)
-│   └── utils/                    # All core processing logic
-│       ├── scrape_mission.py
-│       ├── llm_utils.py
-│       ├── vectore_store.py
-│       ├── evaluation_utils.py
-│       └── timeline_utils.py
-│
-├── genai_urlsumriz/
-│   └── app.py                    # Standalone video/blog summarizer
-│
-├── assets/                       # Screenshots, styles, or images
-├── requirements.txt
-└── README.md
 ```
 
 ## 🔮 Limitations
