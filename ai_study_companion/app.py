@@ -27,7 +27,7 @@ with st.sidebar:
 
 if app_mode == "Pega Study Companion":
     st.header("Pega Study Companion")
-    mission_url ="https://academy.pega.com/mission/system-architect/v7?"# TODO st.text_input("Enter Pega Academy Mission URL:")
+    mission_url =st.text_input("Enter Pega Academy Mission URL:")
     study_days = st.slider("How many days do you want to study this mission?", 3, 21, 7)
     if st.button("🧪 Generate Study Guide"):
         if mission_url:
