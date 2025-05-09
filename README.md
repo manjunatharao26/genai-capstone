@@ -2,7 +2,7 @@
 
 Welcome to the **GenAI Study Companion**, a multi-modal, GenAI-powered learning assistant that helps you summarize Pega Academy missions, YouTube videos, and blog articles—then turns them into study plans, quizzes, and more.
 
-🔗 **Live App**: [https://genai-summarize.streamlit.app/](https://ai-study-companion.streamlit.app/)
+🔗 **Live App**: [[https://genai-summarize.streamlit.app/](https://ai-study-companion.streamlit.app/)](https://ai-study-companion.streamlit.app/)
 
 ---
 
